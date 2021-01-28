@@ -18,17 +18,11 @@ public class AppController {
     @Autowired
     UserService userService;
 
-    /*
-    Done
-     */
     @GetMapping("/")
     public String welcome() {
         return "welcome.html";
     }
 
-    /*
-    Done
-     */
     @GetMapping("/user")
     public String getInfoOnlyForUser(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -39,9 +33,6 @@ public class AppController {
         return "user";
     }
 
-    /*
-    Done
-     */
     @GetMapping("/admin")
     public String getInfoOnlyForAdmin(Model model) {
 
@@ -51,9 +42,6 @@ public class AppController {
         return "admin";
     }
 
-    /*
-    Done
-     */
     @GetMapping("/admin/user/{id}")
     public String getInfoAboutUserForAdmin(@PathVariable("id") Long id, Model model) {
 
@@ -63,18 +51,16 @@ public class AppController {
         return "about_user_for_admin";
     }
 
-
     @RequestMapping("/admin/addNewUser")
     public String addNewUser(Model model) {
         model.addAttribute("listRole", userService.getListRole());
-        User user = new User();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         return "new_user";
     }
 
     @PostMapping("/admin/saveUser")
     public String saveUser(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
-        user.setRoles(getAddRole(role));
+        user.setRoles(getRoles(role));
         userService.saveUser(user);
 
         return "redirect:/admin";
@@ -90,18 +76,12 @@ public class AppController {
 
     @PostMapping(value = "/admin/userEdit")
     public String Update(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
-        user.setRoles(getAddRole(role));
+        user.setRoles(getRoles(role));
         user.setId(99L);
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    /*
-    Do not work
-    Request processing failed; nested exception is
-    javax.persistence.TransactionRequiredException:
-    Executing an update/delete query
-     */
     @RequestMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
 
@@ -109,44 +89,11 @@ public class AppController {
         return "redirect:/admin";
     }
 
-    private Set<Role> getAddRole(String[] role) {
+    private Set<Role> getRoles(String[] role) {
         Set<Role> roleSet = new HashSet<>();
         for (String s : role) {
             roleSet.add(userService.getRoleByName(s));
         }
         return roleSet;
     }
-
-    @GetMapping("/all")
-    public String forOther() {
-        return "for_other";
-    }
 }
-
-
-//    @RequestMapping("/admin/update")
-//    public String updateUser(@RequestParam("username") String username, Model model) {
-//
-//        User user = userService.getUserByName(username);
-//        model.addAttribute("user", user);
-//        return "editing_user_form";
-//    }
-
-
-//    @RequestMapping(method = RequestMethod.POST)
-//    public String waiter(@ModelAttribute Role selectForm, Model model) {
-//        System.out.println(selectForm.getRole());
-//
-//        model.addAttribute("selectForm", selectForm);
-////        model.addAttribute("userList", userService.findAll());
-//
-//        return "editing_user_form";
-//    }
-
-//    @ModelAttribute("userRolesList")
-//    public Map<Role, String> getUserRoles() {
-//        Map<Role, String> userRolesList = new HashMap<>();
-//        userRolesList.put(new Role(1L, "ROLE_USER"), "User");
-//        userRolesList.put(new Role(2L, "ROLE_ADMIN"), "Admin");
-//        return userRolesList;
-//    }
