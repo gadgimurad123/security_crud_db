@@ -61,6 +61,7 @@ public class AppController {
     @PostMapping("/admin/saveUser")
     public String saveUser(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
         user.setRoles(getRoles(role));
+        user.setId(99L);
         userService.saveUser(user);
 
         return "redirect:/admin";
@@ -77,7 +78,6 @@ public class AppController {
     @PostMapping(value = "/admin/edit")
     public String edit(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
         user.setRoles(getRoles(role));
-        user.setId(99L);
         userService.saveUser(user);
         return "redirect:/admin";
     }

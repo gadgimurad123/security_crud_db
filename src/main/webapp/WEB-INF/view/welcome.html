@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="http://thymeleaf.org" lang="EN">-->
+
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+
     <style>
         div.centre {
             margin: auto;
@@ -10,10 +11,12 @@
             border: 3px solid #008000;
             padding: 15px;
         }
+
         table.centre {
             border-collapse: collapse; /* Убираем двойные линии между ячейками */
             border: 2px solid white; /* Прячем рамку вокруг таблицы */
         }
+
         td.centre, th.centre {
             padding: 2px; /* Поля вокруг содержимого таблицы */
             border: 1px solid #008000; /* Параметры рамки */
@@ -26,6 +29,7 @@
 
 <div class="centre">
     <h2>Welcome!</h2>
+    <br>
     <input type="button" value="Login"
            onclick="window.location.href = '/security_crud_db/login'"/>
 </div>
