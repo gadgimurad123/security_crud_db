@@ -1,8 +1,11 @@
 package com.gaz.web.service;
 
 import com.gaz.web.dao.UserDao;
+import com.gaz.web.entity.Role;
 import com.gaz.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User getUserByName(String name) {
-        return userDao.getUserByName(name);
+    public User getUserByName(String username) {
+        return userDao.getUserByName(username);
     }
 
     @Override
@@ -30,7 +33,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(user.getPassword());
         userDao.saveUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        userDao.deleteUser(id);
+    }
+
+    @Override
+    @Transactional
+    public Role getRoleByName(String username) {
+        return userDao.getRoleByName(username);
     }
 
     @Override
@@ -41,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void deleteUser(Long id) {
-        userDao.deleteUser(id);
+    public List<Role> getListRole() {
+        return userDao.getListRole();
     }
 }

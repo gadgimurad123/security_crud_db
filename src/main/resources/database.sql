@@ -28,10 +28,12 @@
 
 # INSERT INTO table_users value (1, 'admin', 'admin', 'admin', 'adminov', 20, 'admin@gmail.com');
 # INSERT INTO table_users value (2, 'user', 'user', 'user', 'userov', 25, 'user@gmail.com');
-INSERT INTO table_users value (3, 'ivan', 'ivan', 'ivan', 'ivanov', 30, 'ivan@gmail.com');
+# INSERT INTO table_users value (3, 'ivan', 'ivan', 'ivan', 'ivanov', 30, 'ivan@gmail.com');
 
 # INSERT INTO table_roles VALUES (1, 'ROLE_ADMIN');
 # INSERT INTO table_roles VALUES (2, 'ROLE_USER');
 #
 # INSERT INTO table_user_role value (1, 1);
 # INSERT INTO table_user_role value (2, 2);
+# INSERT INTO table_user_role value (3, 1);
+INSERT INTO table_user_role value (1, 2);

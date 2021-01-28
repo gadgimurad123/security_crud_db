@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="EN">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <style>
+        div.centre {
+            margin: auto;
+            width: 700px;
+            border: 3px solid #008000;
+            padding: 15px;
+        }
+
+        table.centre {
+            border-collapse: collapse; /* Убираем двойные линии между ячейками */
+            border: 2px solid white; /* Прячем рамку вокруг таблицы */
+        }
+
+        td.centre, th.centre {
+            padding: 1px; /* Поля вокруг содержимого таблицы */
+            border: 1px solid #008000; /* Параметры рамки */
+        }
+
+        li {
+            line-height: 0.1;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="centre">
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <h3>Admin</h3>
+
+    <table class="centre">
+        <tr>
+            <th class="centre">Id</th>
+            <th class="centre">Name</th>
+            <th class="centre">Last name</th>
+            <th class="centre">Age</th>
+            <th class="centre">Email</th>
+            <th class="centre">Roles</th>
+            <th class="centre" colspan="3">Actions</th>
+        </tr>
+
+        <tr th:each="user, state : ${allUsersList}"
+            class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
+
+            <td class="centre" th:utext="${user.id}">Id</td>
+            <td class="centre" th:utext="${user.name}">Name</td>
+            <td class="centre" th:utext="${user.lastName}">Last name</td>
+            <td class="centre" th:utext="${user.email}">E-mail</td>
+            <td class="centre">
+                <label th:each="userRole: ${user.roles}">
+                    <span th:text="${userRole.getRole()}">Roles</span>
+                </label>
+            </td>
+            <td class="centre">
+                <form th:action="@{/admin/user/{id}(id=${user.getId()})}">
+                    <input type="submit" value="More details"/>
+                </form>
+            </td>
+            <td class="centre">
+                <form th:action="@{/admin/update/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Edit"/>
+                </form>
+            </td>
+            <td class="centre">
+                <form method="post" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <input type="button" value="Add user"
+           onclick="window.location.href = 'admin/addNewUser'"/>
+
+</div>
+
+</body>
+
+</html>
