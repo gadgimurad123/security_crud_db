@@ -67,15 +67,15 @@ public class AppController {
     }
 
     @GetMapping(value = "/admin/update/{id}")
-    public String updateUser(@PathVariable("id") Long id, Model model) {
+    public String update(@PathVariable("id") Long id, Model model) {
         model.addAttribute("listRole", userService.getListRole());
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "editing_user_form";
     }
 
-    @PostMapping(value = "/admin/userEdit")
-    public String Update(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
+    @PostMapping(value = "/admin/edit")
+    public String edit(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
         user.setRoles(getRoles(role));
         user.setId(99L);
         userService.saveUser(user);
@@ -83,7 +83,7 @@ public class AppController {
     }
 
     @RequestMapping("/admin/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") Long id) {
 
         userService.deleteUser(id);
         return "redirect:/admin";
