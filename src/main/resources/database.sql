@@ -31,6 +31,6 @@
 # # INSERT INTO table_roles VALUES (1, 'ROLE_ADMIN');
 # # INSERT INTO table_roles VALUES (2, 'ROLE_USER');
 #
-# INSERT INTO table_user_role value (35, 1);
-# INSERT INTO table_user_role value (36, 2);
+# INSERT INTO table_user_role value (4, 1);
+# INSERT INTO table_user_role value (5, 2);
 # INSERT INTO table_user_role value (37, 1);

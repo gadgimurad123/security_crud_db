@@ -77,8 +77,11 @@ public class AppController {
 
     @PostMapping(value = "/admin/edit")
     public String edit(@ModelAttribute("user") User user, @RequestParam("role") String[] role) {
-        user.setRoles(getRoles(role));
-        userService.saveUser(user);
+        User editUser = user;
+        userService.deleteUser(user.getId()); // Костыль, но работает как надо
+        editUser.setRoles(getRoles(role));
+        editUser.setId(9999L);
+        userService.saveUser(editUser);
         return "redirect:/admin";
     }
 
